@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+</head>
+<body>
+<h1>Login Here</h1>
+<form th:action="@{/login}" method="post">
+    <label>Username</label>
+    <input type="text" name="username"/>
+
+    <label>Password</label>
+    <input type="password" name="password"/>
+
+    <button type="submit">Login</button>
+    <p>Pas encore inscrit ? <a th:href="@{/register}">Créer un compte</a></p>
+</form>
+
+</body>
+</html>
