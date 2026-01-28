@@ -11,7 +11,7 @@ afin d'estimer un risque de phishing.
 - Interface web simple
 
 ## Tech Stack
-- Java 17
+- Java 21
 - Spring Boot
 - Spring Security
 - H2 / PostgreSQL
