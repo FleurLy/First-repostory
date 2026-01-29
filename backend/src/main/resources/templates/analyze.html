@@ -2,13 +2,35 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <title>Home</title>
+    <title>Email Analyzer</title>
 </head>
 <body>
-<h1>Ta Page</h1>
-<p>
-    Bienvenue <b sec:authentication="name"></b> 🎉
-</p>
+
+<h1>Email Analyzer 🔍</h1>
+
+<p>Bienvenue <strong sec:authentication="name"></strong></p>
+
+<form th:action="@{/analyze}" method="post">
+    <textarea name="emailContent"
+              rows="10"
+              cols="70"
+              placeholder="Colle ici le contenu de l'email..."></textarea>
+    <br><br>
+    <button type="submit">Analyser</button>
+</form>
+
+<div th:if="${result}">
+    <h3>Résultat :</h3>
+    <p th:text="${result.message}"></p>
+    <p>Score : <span th:text="${result.score}"></span></p>
+    <div th:if="${result.reasons}">
+        <p>Mots détectés :</p>
+        <ul>
+            <li th:each="r : ${result.reasons}" th:text="${r}"></li>
+        </ul>
+    </div>
+</div>
+
 
 <a href="/logout">logout</a>
 
