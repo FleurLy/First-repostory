@@ -32,4 +32,24 @@ public class EmailAnalysisEntity {
     public LocalDateTime getDate(){
         return analyzedAt;
     }
+
+    public void setUsername(String username){
+        this.username = username;
+    }
+
+    public void setContent(String content){
+        this.content = content;
+    }
+
+    public void setScore(int score){
+        this.score = score;
+    }
+
+    public void setSuspicious(boolean suspicious){
+        this.suspicious = suspicious;
+    }
+
+    public void setReasons(List<String> reasons){
+        this.reasons = reasons;
+    }
 }

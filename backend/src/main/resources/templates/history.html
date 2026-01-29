@@ -1,0 +1,19 @@
+<h2>Historique de vos analyses</h2>
+<table>
+    <tr>
+        <th>Date</th>
+        <th>Score</th>
+        <th>Résultat</th>
+        <th>Mots détectés</th>
+        <th>Contenu</th>
+    </tr>
+    <tr th:each="entry : ${history}">
+        <td th:text="${entry.analyzedAt}"></td>
+        <td th:text="${entry.score}"></td>
+        <td th:text="${entry.suspicious ? '⚠️ Suspect' : '✅ Sécurisé'}"></td>
+        <td>
+            <span th:each="r : ${entry.reasons}" th:text="${r} + ' '"></span>
+        </td>
+        <td th:text="${entry.content}"></td>
+    </tr>
+</table>
