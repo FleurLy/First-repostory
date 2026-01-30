@@ -36,6 +36,12 @@ public class UserController {
             return "redirect:/register?error";
         }
 
+        try {
+            userService.registerUser(username, password);
+        } catch (IllegalArgumentException e) {
+            return "redirect:/register?weakPassword=true";
+        }
+
         userService.registerUser(username, password);
 
         // on laisse Spring Security gérer l’authentification

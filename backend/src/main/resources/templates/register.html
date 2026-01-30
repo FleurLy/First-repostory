@@ -11,6 +11,12 @@
 
     <button type="submit">Register</button>
 </form>
+<div th:if="${param.weakPassword}">
+    <p style="color:red;">
+        Mot de passe trop faible.
+        (8 caractères, majuscule, minuscule, chiffre, spécial)
+    </p>
+</div>
 
 </body>
 </html>
