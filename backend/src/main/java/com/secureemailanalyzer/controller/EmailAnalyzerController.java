@@ -2,8 +2,10 @@ package com.secureemailanalyzer.controller;
 
 import com.secureemailanalyzer.dto.EmailAnalysisResult;
 import com.secureemailanalyzer.entity.EmailAnalysisEntity;
+import com.secureemailanalyzer.repository.EmailAnalysisRepository;
 import com.secureemailanalyzer.service.EmailAnalysisService;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -18,9 +20,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class EmailAnalyzerController {
 
     private final EmailAnalysisService emailAnalysisService;
+    private final EmailAnalysisRepository emailAnalysisRepository;
 
-    public EmailAnalyzerController(EmailAnalysisService emailAnalysisService) {
+    public EmailAnalyzerController(EmailAnalysisService emailAnalysisService, EmailAnalysisRepository emailAnalysisRepository) {
         this.emailAnalysisService = emailAnalysisService;
+        this.emailAnalysisRepository = emailAnalysisRepository;
     }
 
     @GetMapping("/analyze")
@@ -28,20 +32,26 @@ public class EmailAnalyzerController {
         return "analyze";
     }
 
-    @GetMapping("/history")
-    public String history(Model model, @AuthenticationPrincipal User user) {
-        List<EmailAnalysisEntity> history = emailAnalysisService.getHistory(user.getUsername());
-        model.addAttribute("history", history);
-        return "history";
-    }
+    
 
 
     @PostMapping("/analyze")
     public String analyzeEmail(
             @RequestParam String emailContent,
             Model model, @AuthenticationPrincipal User user) {
-
+            
+        if (user == null) {
+            return "redirect:/login";
+        }
         EmailAnalysisResult result = emailAnalysisService.analyze(emailContent, user.getUsername());
+        // EmailAnalysisEntity entity = new EmailAnalysisEntity();
+        // entity.setUsername(user.getUsername());
+        // entity.setContent(emailContent);
+        // entity.setScore(result.getScore());
+        // entity.setSuspicious(result.isSuspicious());
+        // entity.setDate(LocalDateTime.now());
+
+        // emailAnalysisRepository.save(entity);
         model.addAttribute("result", result);
 
         return "analyze";

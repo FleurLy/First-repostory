@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head>
-    <title>Email Analyzer</title>
-</head>
-<body>
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      th:replace="layout-private :: layout">
+
+<section>
 
 <h1>Email Analyzer 🔍</h1>
 
@@ -21,7 +20,8 @@
 
 <div th:if="${result}">
     <h3>Résultat :</h3>
-    <p th:text="${result.message}"></p>
+    <p th:text="${result.message}"
+        th:style="${result.message.contains('⚠️')} ? 'color:red' : 'color:green'"></p>
     <p>Score : <span th:text="${result.score}"></span></p>
     <div th:if="${result.reasons}">
         <p>Mots détectés :</p>
@@ -32,7 +32,10 @@
 </div>
 
 
-<a href="/logout">logout</a>
+<form th:action="@{/logout}" method="post" style="display:inline;">
+    <button type="submit">Logout</button>
+</form>
 
-</body>
+</section>
+
 </html>

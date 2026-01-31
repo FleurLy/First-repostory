@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Dashboard</title>
+</head>
+<body>
+
+
+
+<main th:fragment="layout">
+    <a th:href="@{/history}">History</a>
+    <div th:insert="~{::section}"></div>
+</main>
+
+</body>
+<script>
+    window.addEventListener("beforeunload", function () {
+        navigator.sendBeacon("/logout");
+    });
+</script>
+<script>
+    window.addEventListener("pageshow", function (event) {
+        if (event.persisted) {
+            window.location.href = "/login";
+        }
+    });
+</script>
+</html>

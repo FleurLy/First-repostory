@@ -13,7 +13,7 @@ public class EmailAnalysisResult {
         this.message = message;
         this.suspicious = suspicious;
         this.score = score;
-        this.reasons = reasons;
+        this.reasons = List.copyOf(reasons);
     }
 
     // getters

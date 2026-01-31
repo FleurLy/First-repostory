@@ -1,19 +1,27 @@
-<h2>Historique de vos analyses</h2>
-<table>
-    <tr>
-        <th>Date</th>
-        <th>Score</th>
-        <th>Résultat</th>
-        <th>Mots détectés</th>
-        <th>Contenu</th>
-    </tr>
-    <tr th:each="entry : ${history}">
-        <td th:text="${entry.analyzedAt}"></td>
-        <td th:text="${entry.score}"></td>
-        <td th:text="${entry.suspicious ? '⚠️ Suspect' : '✅ Sécurisé'}"></td>
-        <td>
-            <span th:each="r : ${entry.reasons}" th:text="${r} + ' '"></span>
-        </td>
-        <td th:text="${entry.content}"></td>
-    </tr>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="layout-private :: layout">
+
+<div>
+<section>
+<h2>Historique</h2>
+
+<table border="1">
+<tr>
+    <th>Date</th>
+    <th>Score</th>
+    <th>Statut</th>
+    <th>Email</th>
+</tr>
+
+<tr th:each="h : ${history}">
+    <td th:text="${h.date}"></td>
+    <td th:text="${h.score}"></td>
+    <td th:text="${h.suspicious ? '⚠️ Suspect' : 'OK'}"></td>
+    <td th:text="${#strings.abbreviate(h.content, 40)}"></td>
+</tr>
 </table>
+
+</div>
+</section>
+</html>

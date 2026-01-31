@@ -33,6 +33,21 @@ public class EmailAnalysisEntity {
         return analyzedAt;
     }
 
+    public String getUser(){
+        return username;
+    }
+
+    public String getContent(){
+        return content;
+    }
+
+    public int getScore(){
+        return score;
+    }
+
+    public boolean isSuspicious() { return suspicious; }
+    public List<String> getReasons() { return reasons; }
+
     public void setUsername(String username){
         this.username = username;
     }
@@ -51,5 +66,9 @@ public class EmailAnalysisEntity {
 
     public void setReasons(List<String> reasons){
         this.reasons = reasons;
+    }
+
+    public void setDate(LocalDateTime date){
+        this.analyzedAt = date;
     }
 }

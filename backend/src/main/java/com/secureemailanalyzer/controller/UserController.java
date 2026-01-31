@@ -42,7 +42,7 @@ public class UserController {
             return "redirect:/register?weakPassword=true";
         }
 
-        userService.registerUser(username, password);
+        //userService.registerUser(username, password);
 
         // on laisse Spring Security gérer l’authentification
         return "redirect:/login";

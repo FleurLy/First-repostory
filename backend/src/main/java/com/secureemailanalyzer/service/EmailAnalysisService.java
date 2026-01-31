@@ -10,6 +10,10 @@ import com.secureemailanalyzer.dto.EmailAnalysisResult;
 import com.secureemailanalyzer.entity.EmailAnalysisEntity;
 import com.secureemailanalyzer.repository.EmailAnalysisRepository;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+
 // @Service
 // public class EmailAnalysisService {
 
@@ -78,11 +82,24 @@ public class EmailAnalysisService {
         List<String> foundKeywords = new ArrayList<>();
 
         for (Map.Entry<String, Integer> entry : SUSPICIOUS_KEYWORDS.entrySet()) {
-            if (emailContent.contains(entry.getKey())) {
+            String content = emailContent.toLowerCase();
+
+            if (content.contains(entry.getKey())) {
+            // if (emailContent.contains(entry.getKey())) {
                 score += entry.getValue();
                 foundKeywords.add(entry.getKey());
             }
         }
+
+        // Détection des liens
+        Pattern linkPattern = Pattern.compile("(https?:\\/\\/\\S+)", Pattern.CASE_INSENSITIVE);
+        Matcher matcher = linkPattern.matcher(emailContent);
+
+        while (matcher.find()) {
+            score += 4;
+            foundKeywords.add("Lien suspect : " + matcher.group());
+        }
+
 
         boolean suspicious = score >= 5;
         String message = suspicious ? "⚠️ Email suspect détecté" : "Email sécurisé";
@@ -99,6 +116,10 @@ public class EmailAnalysisService {
         repo.save(entity);
 
         return result;
+    }
+
+    public EmailAnalysisRepository getRepo(){
+        return repo;
     }
 
     public List<EmailAnalysisEntity> getHistory(String username) {

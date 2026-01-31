@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "users")
 public class UserEntity {
+    enum Role { USER, ADMIN }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
