@@ -122,7 +122,7 @@ This project is for educational and demonstration purposes.
 ## 🧪 Lancer le projet en local
 
 ### Prérequis
-- Java 17+
+- Java 21
 - Maven 3.8+
 - Git
 
