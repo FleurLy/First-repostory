@@ -49,7 +49,7 @@ Email phishing is one of the **most common cybersecurity threats**. This project
 ## 🛠️ Tech Stack
 
 **Backend**
-- Java 17
+- Java 21
 - Spring Boot
 - Spring MVC
 - Spring Security
